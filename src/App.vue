@@ -1,28 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useThemeStore } from './stores/theme'
+import Child from './components/Child.vue'
+import { storeToRefs } from 'pinia'
 
-const currentTheme = ref(localStorage.getItem('theme') || 'light')
-const changeTheme = (theme: string) => {
-  localStorage.setItem('theme', theme)
-  currentTheme.value = theme
-  window.document.documentElement.setAttribute('data-theme', theme) // key
+const store = useThemeStore()
+const { theme, themeConfig } = storeToRefs(store)
+const change = (theme: string) => {
+  store.changeTheme(theme)
 }
-changeTheme(currentTheme.value)
+change(theme.value)
 </script>
 <template>
   <div class="theme-block">
     <div
       class="light"
-      v-bind:class="{ active: currentTheme == 'light' }"
-      @click="changeTheme('light')"
+      v-bind:class="{ active: theme == 'light' }"
+      @click="change('light')"
     >
       Light
     </div>
     <span>|</span>
     <div
       class="dark"
-      :class="{ active: currentTheme == 'dark' }"
-      @click="changeTheme('dark')"
+      :class="{ active: theme == 'dark' }"
+      @click="change('dark')"
     >
       Dark
     </div>
@@ -30,10 +32,10 @@ changeTheme(currentTheme.value)
   <div class="demo-wrapper">
     Demo
   </div>
+  <Child />
 </template>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
 .theme-block {
   display: flex;
   align-items: center;
@@ -54,7 +56,7 @@ changeTheme(currentTheme.value)
   margin-top: 24px;
   padding: 12px;
   background: var(--background);
-  color: var(--color);
-
+  // color: var(--color);
+  color: v-bind('themeConfig.color');
 }
 </style>
