@@ -1,5 +1,5 @@
 <template>
-  <div class="children-wrapper">
+  <div class="children-wrapper border-1-solid">
     This is child
   </div>
 </template>

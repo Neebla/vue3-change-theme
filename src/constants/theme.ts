@@ -6,9 +6,11 @@ export interface SingleTheme {
 }
 export const themes: themeModel = {
 	light: {
-		color: '#fff'
+		color: '#fff',
+        border:'5px solid red'
 	},
 	dark: {
-		color: '#EAC67C'
+		color: '#EAC67C',
+        border:'10px solid yellow'
 	}
 };

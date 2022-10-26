@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useThemeStore } from './stores/theme'
 import Child from './components/Child.vue'
 import { storeToRefs } from 'pinia'
@@ -36,6 +35,7 @@ change(theme.value)
 </template>
 
 <style lang="scss">
+// 全局共用样式
 .theme-block {
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@ change(theme.value)
     color: #e9ccd3;
   }
   .active {
-    color: var(--color);
+    color: v-bind('themeConfig.color');
   }
 }
 .demo-wrapper {
@@ -58,5 +58,8 @@ change(theme.value)
   background: var(--background);
   // color: var(--color);
   color: v-bind('themeConfig.color');
+}
+.border-1-solid {
+  border: v-bind('themeConfig.border');
 }
 </style>
